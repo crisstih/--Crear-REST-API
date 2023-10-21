@@ -8,3 +8,5 @@ router.get('/libros/:id', async (req, res) => {
     const libroId = req.params.id;
     await libro.getOne(req, res, libroId);
 });
+router.post('/libro', libro.add);
+router.delete('/libro', libro.delete);
