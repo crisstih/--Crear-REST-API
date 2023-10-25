@@ -27,7 +27,9 @@ class LibroController {
     }
   }
 
-  //se coloca http://localhost:3000/libro luego en postman se pone los datos del libro a insertar. ej: {"nombre": "Don Quijote","autor": "Miguel de Cervantes","categoria": "Novela Clasica","año-publicacion": "1605","ISBN": "978-84-376"}
+  //se coloca http://localhost:3000/libro luego en postman se pone los datos del libro a insertar. 
+  //ej: {"nombre": "Don Quijote","autor": "Miguel de Cervantes","categoria": "Novela Clasica","año-publicacion": "1605","ISBN": "978-84-376"}
+
   async add(req, res) {
       const libro = req.body;
       const [result] = await pool.query(
@@ -59,5 +61,22 @@ class LibroController {
       res.status(500).json({ message: 'Error en el servidor al eliminar el libro' });
     }
   }
+
+
+
+  async update(req, res){
+    const libro = req.body;
+    const [result] = await pool.query("UPDATE Libros SET nombre=(?), autor=(?), categoria=(?), `año-publicacion`=(?), ISBN=(?) WHERE id=(?)",[
+      libro.nombre,
+      libro.autor,
+      libro.categoria,
+      `libro.año-publicacion`,
+      libro.ISBN,
+      libro.id
+    ]);
+    res.json({"Registros actualizados": result.changedRows});
+  }
+
+
 }
 export const libro = new LibroController();

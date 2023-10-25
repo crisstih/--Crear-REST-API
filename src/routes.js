@@ -10,3 +10,4 @@ router.get('/libro/:id', async (req, res) => {
 });
 router.post('/libro', libro.add);
 router.delete('/libro', libro.delete);
+router.put('/libro', libro.update);
